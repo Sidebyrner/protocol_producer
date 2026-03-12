@@ -1,0 +1,837 @@
+// PRAXIS — Protocol Database
+// Science-backed habits organized by life category with keyword matching
+
+const PROTOCOL_DB = {
+  sleep: {
+    label: "Sleep Optimization",
+    keywords: ["sleep", "rest", "insomnia", "energy", "recovery", "circadian", "wake", "morning", "night", "tired", "fatigue", "nap"],
+    habits: [
+      {
+        title: "Fixed Wake Time",
+        time: "Same time daily",
+        action: "Wake at the same time every day — including weekends. Anchor your circadian rhythm.",
+        metric: "7 consecutive days at chosen wake time",
+        impact: 10,
+        source: "Matthew Walker, Why We Sleep; Huberman Lab",
+        trigger: "Alarm + immediate light exposure"
+      },
+      {
+        title: "Morning Sunlight (10 min)",
+        time: "Within 30 min of waking",
+        action: "Get direct sunlight in your eyes for 10 minutes. Overcast counts — just go outside.",
+        metric: "Track daily with a simple yes/no in notes app",
+        impact: 9,
+        source: "Andrew Huberman, Stanford Neuroscience",
+        trigger: "Immediately after waking, before coffee"
+      },
+      {
+        title: "Caffeine Cutoff",
+        time: "No caffeine after 2:00 PM",
+        action: "Caffeine has a 6-hour half-life. Stop intake by 2 PM to protect deep sleep.",
+        metric: "Last caffeine timestamp logged daily",
+        impact: 8,
+        source: "Walker, 2017; Journal of Clinical Sleep Medicine",
+        trigger: "Set phone reminder at 1:45 PM"
+      },
+      {
+        title: "Screen Shutdown Protocol",
+        time: "60 min before bed",
+        action: "No screens 60 minutes before sleep. Use blue-light glasses if you must. Read physical books instead.",
+        metric: "Phone screen time shows no usage in final hour",
+        impact: 7,
+        source: "Harvard Health; Proceedings of the NAS",
+        trigger: "Set 'wind down' alarm"
+      },
+      {
+        title: "Room Temperature: 65-68°F",
+        time: "30 min before bed",
+        action: "Set bedroom to 65-68°F (18-20°C). Cool environment triggers melatonin release.",
+        metric: "Thermostat set nightly",
+        impact: 8,
+        source: "Walker, 2017; Sleep Foundation research",
+        trigger: "Thermostat auto-schedule"
+      },
+      {
+        title: "No Alcohol Within 3 Hours of Bed",
+        time: "Evening",
+        action: "Alcohol fragments REM sleep. If you drink, finish 3+ hours before bed.",
+        metric: "Log last drink time",
+        impact: 7,
+        source: "Walker, 2017; Journal of Sleep Research",
+        trigger: "Dinner-time decision"
+      }
+    ]
+  },
+
+  fitness: {
+    label: "Fitness & Physical Performance",
+    keywords: ["fitness", "exercise", "workout", "gym", "strength", "cardio", "muscle", "body", "training", "lift", "run", "running", "weight", "fat", "lean", "athletic", "sport", "physical"],
+    habits: [
+      {
+        title: "Non-Negotiable Training Block",
+        time: "45-60 min, same time daily",
+        action: "Schedule training like a meeting — same time, same days. 4-5x/week minimum. Mix strength (3x) and cardio (2x).",
+        metric: "Sessions completed per week (target: 4-5)",
+        impact: 10,
+        source: "ACSM Guidelines; Ericsson's Deliberate Practice",
+        trigger: "Calendar block — treat as unmovable"
+      },
+      {
+        title: "10,000 Steps Baseline",
+        time: "Throughout the day",
+        action: "Walk 10,000 steps daily as your movement floor. Take calls walking, park far, use stairs.",
+        metric: "Step count via phone/watch",
+        impact: 8,
+        source: "British Journal of Sports Medicine, 2023",
+        trigger: "Morning walk + walking meetings"
+      },
+      {
+        title: "Protein Target: 1g per lb of bodyweight",
+        time: "Spread across meals",
+        action: "Hit 1g protein per pound of bodyweight daily. Front-load at breakfast (40g+).",
+        metric: "Track protein in MyFitnessPal or similar",
+        impact: 9,
+        source: "Journal of the ISSN; Schoenfeld, 2018",
+        trigger: "Meal prep Sundays; protein with every meal"
+      },
+      {
+        title: "Progressive Overload Log",
+        time: "During training",
+        action: "Track every workout. Increase weight, reps, or volume each week. No guessing.",
+        metric: "Training log shows weekly progression",
+        impact: 9,
+        source: "Schoenfeld, 2017; Strength & Conditioning Research",
+        trigger: "Open log before every session"
+      },
+      {
+        title: "Mobility Work (10 min)",
+        time: "Post-workout or evening",
+        action: "10 minutes of targeted stretching/mobility after every session. Focus on hips, thoracic spine, ankles.",
+        metric: "Completed post every training session",
+        impact: 6,
+        source: "NSCA; Behm & Chaouachi, 2011",
+        trigger: "Immediately after training cooldown"
+      }
+    ]
+  },
+
+  career: {
+    label: "Career & Professional Growth",
+    keywords: ["career", "work", "job", "professional", "promotion", "leadership", "management", "business", "corporate", "success", "ambition", "advancement", "salary", "performance review"],
+    habits: [
+      {
+        title: "Deep Work Block (2-4 hours)",
+        time: "Morning (peak cognitive hours)",
+        action: "Block 2-4 hours of uninterrupted, distraction-free work on your highest-impact task. No email, no Slack, phone on airplane mode.",
+        metric: "Hours of deep work logged daily",
+        impact: 10,
+        source: "Cal Newport, Deep Work; Anders Ericsson",
+        trigger: "Calendar block starting at your peak energy time"
+      },
+      {
+        title: "Weekly Priority Setting (Sunday)",
+        time: "Sunday evening, 30 min",
+        action: "Define your top 3 outcomes for the week. Everything else is secondary. Write them down physically.",
+        metric: "3 outcomes written and visible at desk",
+        impact: 9,
+        source: "Covey, 7 Habits; Getting Things Done",
+        trigger: "Sunday 6 PM calendar reminder"
+      },
+      {
+        title: "Daily MIT (Most Important Task) First",
+        time: "First work task of the day",
+        action: "Start every workday with your most important task — before email, before meetings. Eat the frog.",
+        metric: "MIT completed before noon",
+        impact: 9,
+        source: "Brian Tracy; Behavioral psychology (Baumeister)",
+        trigger: "Written on index card night before"
+      },
+      {
+        title: "Strategic Networking (2x/week)",
+        time: "Scheduled slots",
+        action: "Reach out to 2 people per week — mentors, peers, industry contacts. Give value first. Build relationships before you need them.",
+        metric: "2 meaningful outreach actions per week",
+        impact: 7,
+        source: "Ferrazzi, Never Eat Alone; LinkedIn research",
+        trigger: "Tuesday and Thursday 15-min blocks"
+      },
+      {
+        title: "Skill Development (30 min/day)",
+        time: "Blocked daily",
+        action: "Dedicate 30 minutes to learning a skill directly relevant to your next career level. Books, courses, practice.",
+        metric: "30 min logged daily; skill milestones tracked monthly",
+        impact: 8,
+        source: "Ericsson, Peak; Deliberate Practice research",
+        trigger: "After deep work block or lunch"
+      },
+      {
+        title: "End-of-Day Shutdown Ritual",
+        time: "Last 15 min of work",
+        action: "Review what was accomplished, capture loose ends, plan tomorrow's MIT. Say 'shutdown complete' to create a psychological boundary.",
+        metric: "Ritual completed daily; next-day MIT written",
+        impact: 7,
+        source: "Cal Newport, Deep Work; Zeigarnik Effect research",
+        trigger: "15 min before planned work end"
+      }
+    ]
+  },
+
+  mindset: {
+    label: "Mindset & Mental Performance",
+    keywords: ["mindset", "mental", "mind", "focus", "concentration", "meditation", "stress", "anxiety", "confidence", "resilience", "motivation", "discipline", "willpower", "clarity", "thinking", "brain", "cognitive", "psychology", "emotional", "stoic", "stoicism"],
+    habits: [
+      {
+        title: "Morning Meditation (10-20 min)",
+        time: "First thing after waking",
+        action: "Sit in silence for 10-20 minutes. Focus on breath. Use Vipassana, NSDR, or simple breath-counting. Non-negotiable mental training.",
+        metric: "Consecutive days streak; note subjective focus score (1-10)",
+        impact: 10,
+        source: "Huberman Lab; Davidson, 2003; Goleman & Davidson, Altered Traits",
+        trigger: "Before any screen or input"
+      },
+      {
+        title: "Journaling: 3 Priorities + 1 Reflection",
+        time: "Morning (5 min)",
+        action: "Write 3 things you will accomplish today and 1 thing you learned yesterday. Physical pen and paper.",
+        metric: "Journal completed before work starts",
+        impact: 8,
+        source: "Pennebaker research; Tim Ferriss methodology",
+        trigger: "After meditation, with morning coffee"
+      },
+      {
+        title: "Cold Exposure (2-5 min)",
+        time: "Morning",
+        action: "Cold shower or ice bath for 2-5 minutes. Builds stress resilience and dopamine baseline (+250% for 3 hours).",
+        metric: "Duration logged daily",
+        impact: 7,
+        source: "Huberman Lab; Šrámek et al., 2000; European Journal of Applied Physiology",
+        trigger: "End of morning shower — turn to cold"
+      },
+      {
+        title: "Single-Task Commitment",
+        time: "Throughout the day",
+        action: "Do one thing at a time. Close all tabs except the active task. No multitasking. Context-switching costs 23 minutes per switch.",
+        metric: "Number of times you catch yourself multitasking (reduce weekly)",
+        impact: 9,
+        source: "Mark, Gonzalez & Harris, 2005; APA multitasking research",
+        trigger: "Before starting any task, close everything else"
+      },
+      {
+        title: "Evening Gratitude (2 min)",
+        time: "Before bed",
+        action: "Write 3 specific things you're grateful for from today. Specificity matters — not 'family' but 'the conversation with my daughter at dinner.'",
+        metric: "3 entries nightly",
+        impact: 6,
+        source: "Emmons & McCullough, 2003; Positive Psychology research",
+        trigger: "After setting phone to charge"
+      },
+      {
+        title: "Information Diet",
+        time: "Daily discipline",
+        action: "No news, no social media scrolling, no passive content consumption. Consume only what directly serves your current goals.",
+        metric: "Screen time report shows <30 min social/news",
+        impact: 8,
+        source: "Cal Newport, Digital Minimalism; Ferriss, 4-Hour Workweek",
+        trigger: "Delete apps; use website blockers"
+      }
+    ]
+  },
+
+  nutrition: {
+    label: "Nutrition & Diet",
+    keywords: ["nutrition", "diet", "food", "eating", "meal", "cook", "cooking", "health", "healthy", "macro", "calorie", "supplement", "vitamin", "gut", "fasting", "intermittent"],
+    habits: [
+      {
+        title: "Meal Prep Sunday",
+        time: "Sunday, 2 hours",
+        action: "Prepare 80% of your weekly meals in one session. Protein, vegetables, and complex carbs ready to grab. Eliminate daily decision fatigue.",
+        metric: "Number of prepped meals available Monday morning",
+        impact: 9,
+        source: "Behavioral economics (decision fatigue); Wansink, Mindless Eating",
+        trigger: "Sunday morning after grocery delivery"
+      },
+      {
+        title: "Protein-First Breakfast (40g+)",
+        time: "Within 1 hour of waking",
+        action: "Start every day with 40g+ protein. Eggs, Greek yogurt, protein shake. Sets satiety and blood sugar for the day.",
+        metric: "Protein grams at breakfast logged",
+        impact: 9,
+        source: "Leidy et al., 2015; Journal of Nutrition",
+        trigger: "Pre-planned breakfast — no morning decisions"
+      },
+      {
+        title: "Hydration Protocol",
+        time: "Throughout the day",
+        action: "Drink half your bodyweight (lbs) in ounces of water daily. Start with 16oz immediately upon waking. Add electrolytes if training.",
+        metric: "Water intake tracked (bottle count method)",
+        impact: 7,
+        source: "ACSM Position Stand; Popkin et al., 2010",
+        trigger: "Water bottle at bedside; refill at set times"
+      },
+      {
+        title: "Vegetable Minimum (5 servings)",
+        time: "Across meals",
+        action: "Eat at least 5 servings of vegetables daily. Prioritize leafy greens, cruciferous vegetables. Build into every meal.",
+        metric: "Servings counted daily",
+        impact: 8,
+        source: "WHO guidelines; Harvard T.H. Chan School of Public Health",
+        trigger: "Prep veggies during Sunday meal prep"
+      },
+      {
+        title: "No Liquid Calories",
+        time: "Daily rule",
+        action: "Eliminate sodas, juices, sugary coffees. Drink water, black coffee, or tea. Liquid calories bypass satiety signals.",
+        metric: "Zero liquid calorie beverages consumed",
+        impact: 7,
+        source: "Pan & Hu, 2011; American Journal of Clinical Nutrition",
+        trigger: "Stock only water/coffee/tea at home and office"
+      },
+      {
+        title: "3-Hour Pre-Sleep Eating Cutoff",
+        time: "Evening",
+        action: "Stop eating 3 hours before bed. Supports better sleep quality and metabolic health.",
+        metric: "Last meal timestamp",
+        impact: 6,
+        source: "Kinsey & Ormsbee, 2015; Advances in Nutrition",
+        trigger: "Set dinner time based on target bedtime"
+      }
+    ]
+  },
+
+  relationships: {
+    label: "Relationships & Social Connection",
+    keywords: ["relationship", "relationships", "partner", "spouse", "marriage", "dating", "love", "family", "friends", "friendship", "social", "connection", "communication", "intimacy", "trust"],
+    habits: [
+      {
+        title: "Daily Check-In (15 min)",
+        time: "Evening",
+        action: "15 minutes of undistracted conversation with your partner/closest person daily. Phones away. Ask 'What was the best and hardest part of your day?'",
+        metric: "15-min check-in completed (yes/no daily)",
+        impact: 10,
+        source: "Gottman Institute research; Reis & Shaver, 1988",
+        trigger: "Right after dinner, before screens"
+      },
+      {
+        title: "Weekly Date/Quality Time Block",
+        time: "Scheduled weekly",
+        action: "Block 2-3 hours weekly for intentional quality time with your partner or closest relationships. No phones, no work talk for the first hour.",
+        metric: "Weekly block completed",
+        impact: 9,
+        source: "Gottman, The Seven Principles; Aron et al., 2000",
+        trigger: "Same day/time every week — calendar it"
+      },
+      {
+        title: "5:1 Positive Interaction Ratio",
+        time: "Throughout interactions",
+        action: "For every negative interaction, ensure 5 positive ones. Express appreciation, interest, affection, humor. Track if needed initially.",
+        metric: "Self-awareness of ratio; weekly reflection",
+        impact: 8,
+        source: "Gottman, 1994; Journal of Marriage and Family",
+        trigger: "Morning intention: 'I will express appreciation 3 times today'"
+      },
+      {
+        title: "Reach Out to 1 Friend/Week",
+        time: "Scheduled",
+        action: "Call (not text) one friend per week. Maintain your broader social network intentionally. Deep friendships require consistent investment.",
+        metric: "1 call made per week",
+        impact: 7,
+        source: "Dunbar, 2010; Harvard Study of Adult Development",
+        trigger: "Thursday lunch — call a friend"
+      },
+      {
+        title: "Active Listening Practice",
+        time: "Every conversation",
+        action: "In important conversations: listen fully before responding, reflect back what you heard, ask one follow-up question. No fixing, no advising unless asked.",
+        metric: "Self-score listening quality 1-10 after key conversations",
+        impact: 8,
+        source: "Rogers, 1951; Weger et al., 2014",
+        trigger: "Before responding, count to 3"
+      }
+    ]
+  },
+
+  finances: {
+    label: "Financial Mastery",
+    keywords: ["finance", "financial", "money", "wealth", "invest", "investing", "savings", "budget", "income", "debt", "retirement", "portfolio", "passive income", "net worth", "spending"],
+    habits: [
+      {
+        title: "Automated Savings (Pay Yourself First)",
+        time: "Day after payday (automated)",
+        action: "Auto-transfer 20%+ of income to savings/investment accounts the day you get paid. Never see it, never spend it.",
+        metric: "Savings rate percentage; automation confirmed",
+        impact: 10,
+        source: "Bach, The Automatic Millionaire; Thaler, Nudge",
+        trigger: "One-time setup — then fully automated"
+      },
+      {
+        title: "Weekly Financial Review (15 min)",
+        time: "Sunday, 15 min",
+        action: "Review spending, check account balances, track net worth progress. 15 minutes max. Use a single dashboard (Mint, YNAB, spreadsheet).",
+        metric: "Review completed weekly; net worth tracked monthly",
+        impact: 9,
+        source: "Behavioral finance research; Ramsey, Total Money Makeover",
+        trigger: "Sunday morning with coffee, before weekly planning"
+      },
+      {
+        title: "24-Hour Purchase Rule",
+        time: "Before any non-essential purchase >$50",
+        action: "Wait 24 hours before any discretionary purchase over $50. Write it down, revisit tomorrow. 70%+ of impulse purchases are eliminated.",
+        metric: "Purchases delayed and reconsidered",
+        impact: 7,
+        source: "Behavioral economics; Kahneman, Thinking Fast and Slow",
+        trigger: "Before checkout — add to 'waiting' list instead"
+      },
+      {
+        title: "Income Skill Development (30 min/day)",
+        time: "Daily",
+        action: "Spend 30 minutes daily developing a skill that directly increases your earning potential. High-income skills: sales, negotiation, coding, leadership.",
+        metric: "30 min logged; quarterly income trajectory review",
+        impact: 8,
+        source: "Ericsson, Peak; Kiyosaki, Rich Dad Poor Dad (income focus)",
+        trigger: "Blocked after primary work day"
+      },
+      {
+        title: "Monthly Investment Contribution",
+        time: "Monthly (automated)",
+        action: "Consistent monthly investment into diversified index funds or chosen strategy. Dollar-cost averaging. Never time the market.",
+        metric: "Monthly contribution made on schedule",
+        impact: 9,
+        source: "Bogle, The Little Book of Common Sense Investing; Malkiel, Random Walk",
+        trigger: "Automated on the 1st of each month"
+      }
+    ]
+  },
+
+  productivity: {
+    label: "Productivity & Time Management",
+    keywords: ["productivity", "time", "efficiency", "organize", "organization", "schedule", "planning", "procrastination", "habit", "habits", "routine", "system", "systems", "optimize", "output", "accomplish"],
+    habits: [
+      {
+        title: "Time-Block Your Entire Day",
+        time: "Evening before (10 min)",
+        action: "Every minute of your day should be assigned to a block. If something interrupts, re-block. Your calendar is your operating system.",
+        metric: "Day fully time-blocked by 9 PM night before",
+        impact: 10,
+        source: "Cal Newport, Time-Block Planner; Parkinson's Law",
+        trigger: "Evening shutdown ritual includes tomorrow's blocks"
+      },
+      {
+        title: "Two-Minute Rule",
+        time: "Whenever a task arises",
+        action: "If a task takes less than 2 minutes, do it immediately. Don't add it to a list. Eliminates task buildup.",
+        metric: "Small tasks completed immediately (self-track first week)",
+        impact: 7,
+        source: "David Allen, Getting Things Done",
+        trigger: "When any new task enters your awareness"
+      },
+      {
+        title: "Weekly Review (60 min)",
+        time: "Sunday or Friday afternoon",
+        action: "Review all projects, clear inboxes, update task lists, set next week's priorities. The single habit that makes all other habits work.",
+        metric: "Weekly review completed; all inboxes at zero",
+        impact: 9,
+        source: "David Allen, Getting Things Done; Covey, 7 Habits",
+        trigger: "Recurring calendar block — protect fiercely"
+      },
+      {
+        title: "Batch Similar Tasks",
+        time: "Scheduled blocks",
+        action: "Group similar tasks (email, calls, admin, creative) into single blocks. Context-switching is the enemy of output.",
+        metric: "Number of context switches per day (reduce to <5)",
+        impact: 8,
+        source: "Mark et al., 2005; Newport, Deep Work",
+        trigger: "Assign task types to specific time blocks"
+      },
+      {
+        title: "Say No by Default",
+        time: "When asked for commitments",
+        action: "Default answer to new commitments is 'let me check my calendar and get back to you.' Protect your time like it's your most valuable asset — because it is.",
+        metric: "Number of commitments declined per week",
+        impact: 8,
+        source: "McKeown, Essentialism; Covey, Big Rocks theory",
+        trigger: "Pause before saying yes to anything"
+      }
+    ]
+  },
+
+  learning: {
+    label: "Learning & Intellectual Growth",
+    keywords: ["learning", "learn", "read", "reading", "study", "studying", "education", "knowledge", "intellectual", "books", "course", "skill", "skills", "growth", "development", "curiosity", "wisdom"],
+    habits: [
+      {
+        title: "Read 30 Minutes Daily (Non-Fiction)",
+        time: "Morning or evening block",
+        action: "Read 30 minutes of non-fiction daily. Physical books preferred (better retention). Take notes in margins. 30 min/day = 25+ books/year.",
+        metric: "Pages read daily; books completed monthly",
+        impact: 9,
+        source: "Krashen, 2004; Cunningham & Stanovich, 1998",
+        trigger: "Replace screen time — book on nightstand"
+      },
+      {
+        title: "Teach What You Learn",
+        time: "Within 24 hours of learning",
+        action: "Explain new concepts to someone else within 24 hours. Write a summary, record a voice note, or discuss with a peer. Teaching is the highest form of learning.",
+        metric: "Number of concepts taught/explained per week",
+        impact: 8,
+        source: "Feynman Technique; Chi et al., 1994 (self-explanation)",
+        trigger: "After finishing a chapter or module"
+      },
+      {
+        title: "Spaced Repetition Review",
+        time: "10 min daily",
+        action: "Use Anki or a spaced repetition system for key facts and frameworks. 10 minutes/day compounds into extraordinary retention.",
+        metric: "Daily review streak; cards reviewed",
+        impact: 7,
+        source: "Ebbinghaus, 1885; Cepeda et al., 2006",
+        trigger: "During morning commute or after lunch"
+      },
+      {
+        title: "Weekly Skill Practice Session",
+        time: "2-hour weekly block",
+        action: "Dedicate 2 hours per week to deliberate practice of your target skill. Focus on the hardest parts, get feedback, iterate.",
+        metric: "Session completed; specific sub-skill targeted each week",
+        impact: 8,
+        source: "Ericsson, Peak; Colvin, Talent is Overrated",
+        trigger: "Same day/time weekly — blocked in calendar"
+      }
+    ]
+  },
+
+  spirituality: {
+    label: "Spirituality & Purpose",
+    keywords: ["spiritual", "spirituality", "purpose", "meaning", "faith", "prayer", "soul", "inner", "peace", "values", "mission", "calling", "presence", "awareness", "consciousness", "religion", "god"],
+    habits: [
+      {
+        title: "Morning Silence Practice (15 min)",
+        time: "First 15 minutes of the day",
+        action: "Sit in complete silence. No guided meditation, no music. Just observe your mind. This builds the muscle of presence and self-awareness.",
+        metric: "15 min completed daily; streak tracked",
+        impact: 9,
+        source: "Contemplative traditions; Tolle, The Power of Now; Davidson, 2003",
+        trigger: "Before any external input — phone stays off"
+      },
+      {
+        title: "Values Alignment Check (Weekly)",
+        time: "Sunday, 10 min",
+        action: "Review your core values. Ask: 'Did my actions this week align with who I want to be?' Adjust next week's priorities accordingly.",
+        metric: "Alignment score 1-10; adjustments noted",
+        impact: 8,
+        source: "Hayes, ACT therapy; Frankl, Man's Search for Meaning",
+        trigger: "Part of Sunday weekly review"
+      },
+      {
+        title: "Contribution/Service Act (Weekly)",
+        time: "Scheduled weekly",
+        action: "Do one act of genuine service or contribution per week. Volunteer, mentor, help someone with no expectation of return.",
+        metric: "1 act per week logged",
+        impact: 7,
+        source: "Grant, Give and Take; Post, 2005 (altruism and health)",
+        trigger: "Identify opportunity during weekly planning"
+      },
+      {
+        title: "Evening Reflection (5 min)",
+        time: "Before sleep",
+        action: "Ask yourself: 'What did I learn? Where did I grow? What am I grateful for?' Write brief answers. Close the day with intention.",
+        metric: "Reflection completed nightly",
+        impact: 7,
+        source: "Pennebaker, 1997; Ignatius of Loyola, Examen tradition",
+        trigger: "After brushing teeth, before lights out"
+      }
+    ]
+  },
+
+  creativity: {
+    label: "Creativity & Innovation",
+    keywords: ["creative", "creativity", "innovation", "art", "writing", "write", "design", "music", "create", "ideas", "brainstorm", "imagination", "craft", "content", "maker"],
+    habits: [
+      {
+        title: "Morning Pages (15 min)",
+        time: "Morning, before work",
+        action: "Write 3 pages of stream-of-consciousness by hand. Don't edit, don't judge. Clear mental clutter and surface buried ideas.",
+        metric: "3 pages completed daily",
+        impact: 9,
+        source: "Julia Cameron, The Artist's Way",
+        trigger: "After morning coffee, before any work"
+      },
+      {
+        title: "Creative Block (90 min)",
+        time: "Scheduled daily",
+        action: "Protect 90 minutes for uninterrupted creative work. No input, no meetings, no admin. This is where your best work happens.",
+        metric: "90-min block honored daily",
+        impact: 10,
+        source: "Csikszentmihalyi, Flow; Newport, Deep Work",
+        trigger: "Calendar block at peak creative energy time"
+      },
+      {
+        title: "Input Diversification",
+        time: "Weekly",
+        action: "Consume content outside your field weekly. Different genre books, documentaries, art exhibits, music. Cross-pollination drives innovation.",
+        metric: "1 outside-field input per week",
+        impact: 7,
+        source: "Epstein, Range; Simonton creativity research",
+        trigger: "Replace one regular content slot with something unfamiliar"
+      },
+      {
+        title: "Idea Capture System",
+        time: "Always on",
+        action: "Carry a capture tool (notebook, phone note) everywhere. When ideas strike, record immediately. Review weekly and develop the best ones.",
+        metric: "Ideas captured per week; ideas developed per month",
+        impact: 8,
+        source: "David Allen, GTD; Edison's notebooks methodology",
+        trigger: "Idea arises → capture within 30 seconds"
+      }
+    ]
+  },
+
+  leadership: {
+    label: "Leadership & Influence",
+    keywords: ["leadership", "leader", "lead", "influence", "team", "manage", "management", "executive", "CEO", "founder", "entrepreneur", "decision", "delegate", "vision", "inspire"],
+    habits: [
+      {
+        title: "Daily 1-on-1 Check (15 min)",
+        time: "Rotating — one direct report per day",
+        action: "Spend 15 minutes with one team member daily. Ask: 'What's blocking you? How can I help?' Listen more than talk.",
+        metric: "Every direct report spoken to weekly",
+        impact: 9,
+        source: "Gallup, State of the American Manager; Kim Scott, Radical Candor",
+        trigger: "Morning calendar block — rotates through team"
+      },
+      {
+        title: "Decision Journal",
+        time: "After major decisions",
+        action: "Log every significant decision: what you decided, why, what you expected. Review quarterly to improve decision quality.",
+        metric: "Decisions logged; quarterly review completed",
+        impact: 8,
+        source: "Kahneman; Bezos decision-making framework; Farnam Street",
+        trigger: "After any decision you'd agonize over"
+      },
+      {
+        title: "Weekly Strategic Thinking Block (60 min)",
+        time: "Midweek",
+        action: "One hour of pure strategic thinking weekly. No laptop, no phone. Whiteboard or notebook only. Think about where you're going, not just what you're doing.",
+        metric: "60-min block completed weekly; insights captured",
+        impact: 9,
+        source: "Drucker, The Effective Executive; Rumelt, Good Strategy Bad Strategy",
+        trigger: "Wednesday afternoon — block is sacred"
+      },
+      {
+        title: "Praise in Public, Correct in Private",
+        time: "Ongoing",
+        action: "Recognize team wins publicly and immediately. Address issues privately within 24 hours. Never reverse this.",
+        metric: "Public recognitions given per week",
+        impact: 7,
+        source: "Blanchard, One Minute Manager; Organizational psychology",
+        trigger: "When you notice good work — act immediately"
+      }
+    ]
+  },
+
+  energy: {
+    label: "Energy & Vitality",
+    keywords: ["energy", "vitality", "stamina", "burnout", "exhaustion", "recharge", "recovery", "self-care", "wellbeing", "wellness", "balance", "sustainable", "longevity", "aging", "biohacking"],
+    habits: [
+      {
+        title: "Energy Audit (Weekly)",
+        time: "Sunday, 10 min",
+        action: "Rate your energy 1-10 for each day of the past week. Identify patterns: what drained you, what energized you. Restructure next week accordingly.",
+        metric: "Weekly energy scores logged; trends identified",
+        impact: 8,
+        source: "Loehr & Schwartz, The Power of Full Engagement",
+        trigger: "Part of Sunday weekly review"
+      },
+      {
+        title: "Ultradian Sprint Cycles",
+        time: "Throughout workday",
+        action: "Work in 90-minute focused sprints followed by 15-20 minute recovery breaks. Your body runs on ~90-min energy cycles — work with them, not against them.",
+        metric: "Number of complete 90/20 cycles per day",
+        impact: 9,
+        source: "Peretz Lavie, ultradian rhythms research; Ericsson",
+        trigger: "Timer set for 90-minute blocks"
+      },
+      {
+        title: "Non-Negotiable Recovery Day",
+        time: "1 day per week",
+        action: "One full day per week with no work, no hustle, no productivity guilt. Active recovery: nature, play, connection. Sustainability requires rest.",
+        metric: "Recovery day honored weekly (no exceptions for 4 weeks)",
+        impact: 8,
+        source: "Maslach, burnout research; Biblical sabbath principle; sports periodization",
+        trigger: "Pick a day — protect it absolutely"
+      },
+      {
+        title: "Breathwork Reset (5 min, 2x/day)",
+        time: "Mid-morning + mid-afternoon",
+        action: "Do 5 minutes of box breathing (4-4-4-4) or physiological sighs (double inhale + long exhale). Resets your autonomic nervous system.",
+        metric: "2 sessions daily; note energy score before/after",
+        impact: 7,
+        source: "Huberman Lab; Zaccaro et al., 2018",
+        trigger: "Set phone reminders at 10:30 AM and 3 PM"
+      }
+    ]
+  },
+
+  communication: {
+    label: "Communication & Public Speaking",
+    keywords: ["communication", "speaking", "public speaking", "presentation", "writing", "persuasion", "negotiation", "conflict", "conversation", "articulate", "voice", "rhetoric", "storytelling"],
+    habits: [
+      {
+        title: "Daily Writing Practice (15 min)",
+        time: "Morning",
+        action: "Write for 15 minutes daily on any topic. Clear writing = clear thinking. This is mental weight training for communication.",
+        metric: "15 min completed daily; weekly word count tracked",
+        impact: 8,
+        source: "Zinsser, On Writing Well; Paul Graham essays on writing",
+        trigger: "After journaling; open blank document"
+      },
+      {
+        title: "Record and Review Yourself (Weekly)",
+        time: "Once per week",
+        action: "Record yourself speaking for 2 minutes on a topic. Review the recording. Identify filler words, pacing issues, clarity gaps. Improve one thing per week.",
+        metric: "1 recording per week; 1 improvement identified",
+        impact: 7,
+        source: "Toastmasters methodology; deliberate practice",
+        trigger: "Friday afternoon — record a summary of your week"
+      },
+      {
+        title: "Pre-Conversation Intention (30 sec)",
+        time: "Before important conversations",
+        action: "Before any important conversation: pause 30 seconds and clarify your outcome. What do you want the other person to think, feel, or do after?",
+        metric: "Applied to every planned meeting/conversation",
+        impact: 8,
+        source: "Covey, Habit 2: Begin with the End in Mind",
+        trigger: "Hand on door handle / before dialing"
+      }
+    ]
+  }
+};
+
+// Cross-category synergies — bonus habits when certain categories are combined
+const SYNERGIES = {
+  "sleep+fitness": {
+    title: "Training-Recovery Alignment",
+    action: "Schedule intense training sessions at least 6 hours before bed. Use post-workout nutrition to support sleep quality. Track sleep quality on training vs. rest days.",
+    source: "Vitale et al., 2019; Sports Medicine"
+  },
+  "career+relationships": {
+    title: "Work-Life Boundary Protocol",
+    action: "Set a hard stop time for work. Communicate it to both colleagues and partner. The transition ritual (change clothes, short walk) separates identities.",
+    source: "Kossek & Lautsch, 2012; Clark, 2000 (boundary theory)"
+  },
+  "mindset+fitness": {
+    title: "Post-Training Mental Clarity Window",
+    action: "Schedule your most important cognitive work 60-90 minutes after exercise. BDNF and neuroplasticity peak during this window.",
+    source: "Ratey, Spark; Hillman et al., 2008"
+  },
+  "nutrition+fitness": {
+    title: "Nutrient Timing Protocol",
+    action: "Eat your largest meal within 2 hours post-training. Prioritize protein (40g) + carbohydrates. This is when your body utilizes nutrients most effectively.",
+    source: "Kerksick et al., 2017; ISSN Position Stand"
+  },
+  "finances+career": {
+    title: "Income-Investment Acceleration",
+    action: "Every income increase — immediately redirect 50% of the increase to investments before lifestyle expands. Lifestyle inflation is the wealth killer.",
+    source: "Stanley & Danko, The Millionaire Next Door"
+  },
+  "mindset+creativity": {
+    title: "State-Priming for Creative Work",
+    action: "Do a 10-minute meditation or breathwork session immediately before creative blocks. Clear the mental cache. Your best ideas emerge from stillness, not stimulation.",
+    source: "Colzato et al., 2012; Frontiers in Human Neuroscience"
+  },
+  "sleep+mindset": {
+    title: "Sleep-Onset Thought Download",
+    action: "Write all lingering thoughts on paper 30 minutes before bed. Unfinished thoughts create 'cognitive arousal' that blocks sleep. Download them, close the loop.",
+    source: "Scullin et al., 2018; Journal of Experimental Psychology"
+  },
+  "energy+nutrition": {
+    title: "Blood Sugar Stability Protocol",
+    action: "Eat protein + fat + fiber at every meal. Never eat carbs alone. Stable blood sugar = stable energy = stable mood. No crashes, no cravings.",
+    source: "Ludwig, Always Hungry; Glycemic index research"
+  }
+};
+
+// Matching engine
+function matchCategories(userInput) {
+  const input = userInput.toLowerCase().trim();
+  const scores = {};
+
+  for (const [key, category] of Object.entries(PROTOCOL_DB)) {
+    let score = 0;
+    for (const keyword of category.keywords) {
+      if (input.includes(keyword)) {
+        // Exact word match scores higher
+        const regex = new RegExp(`\\b${keyword}\\b`, 'i');
+        score += regex.test(input) ? 3 : 1;
+      }
+    }
+    // Also check if category label matches
+    if (input.includes(category.label.toLowerCase())) {
+      score += 5;
+    }
+    if (score > 0) {
+      scores[key] = score;
+    }
+  }
+
+  // If no match found, try fuzzy matching with partial keyword matches
+  if (Object.keys(scores).length === 0) {
+    for (const [key, category] of Object.entries(PROTOCOL_DB)) {
+      for (const keyword of category.keywords) {
+        if (keyword.includes(input) || input.includes(keyword.substring(0, 4))) {
+          scores[key] = (scores[key] || 0) + 1;
+        }
+      }
+    }
+  }
+
+  return Object.entries(scores)
+    .sort((a, b) => b[1] - a[1])
+    .map(([key]) => key);
+}
+
+function findSynergies(categories) {
+  const synergies = [];
+  for (let i = 0; i < categories.length; i++) {
+    for (let j = i + 1; j < categories.length; j++) {
+      const key1 = `${categories[i]}+${categories[j]}`;
+      const key2 = `${categories[j]}+${categories[i]}`;
+      if (SYNERGIES[key1]) synergies.push(SYNERGIES[key1]);
+      if (SYNERGIES[key2]) synergies.push(SYNERGIES[key2]);
+    }
+  }
+  return synergies;
+}
+
+function generateProtocol(priorities) {
+  const allHabits = [];
+  const matchedCategories = [];
+  const usedCategories = new Set();
+
+  for (const priority of priorities) {
+    const matches = matchCategories(priority);
+    for (const match of matches) {
+      if (!usedCategories.has(match)) {
+        usedCategories.add(match);
+        matchedCategories.push(match);
+        const category = PROTOCOL_DB[match];
+        for (const habit of category.habits) {
+          allHabits.push({
+            ...habit,
+            category: category.label
+          });
+        }
+      }
+    }
+  }
+
+  // Sort by impact (highest ROI first)
+  allHabits.sort((a, b) => b.impact - a.impact);
+
+  // Find synergies
+  const synergies = findSynergies(matchedCategories);
+
+  return {
+    habits: allHabits,
+    categories: matchedCategories.map(k => PROTOCOL_DB[k].label),
+    synergies,
+    generatedAt: new Date().toISOString()
+  };
+}
