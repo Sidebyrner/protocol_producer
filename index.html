@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PRAXIS — Your Non-Negotiable Protocol</title>
+  <meta name="description" content="PRAXIS generates personalized, science-backed daily protocols for high-performers. Input your priorities, get your non-negotiable habits.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+  <!-- Hero / Landing -->
+  <header class="hero" id="hero">
+    <nav class="nav">
+      <div class="nav-brand">PRAXIS</div>
+      <div class="nav-tagline">Non-Negotiable Protocols</div>
+    </nav>
+    <div class="hero-content">
+      <h1 class="hero-title">Stop Optimizing.<br><span class="gold">Start Executing.</span></h1>
+      <p class="hero-subtitle">Tell us your priorities. We'll give you the exact daily habits — science-backed, impact-ranked, immediately actionable. No fluff. No guessing.</p>
+      <button class="btn btn-primary" id="startBtn">Build My Protocol</button>
+    </div>
+    <div class="hero-scroll-indicator">
+      <span>&#8595;</span>
+    </div>
+  </header>
+
+  <!-- Input Section -->
+  <section class="input-section" id="inputSection">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">01</span>
+        <h2>Define Your Priorities</h2>
+        <p class="section-desc">Add the areas of your life you want to optimize. Be specific or broad — PRAXIS handles both.</p>
+      </div>
+
+      <form class="priority-form" id="priorityForm">
+        <div class="priorities-list" id="prioritiesList">
+          <div class="priority-input-group" data-index="0">
+            <span class="priority-number">01</span>
+            <input
+              type="text"
+              class="priority-input"
+              placeholder="e.g., Sleep optimization, Career growth, Fitness..."
+              autocomplete="off"
+              required
+            >
+            <button type="button" class="btn-remove" title="Remove" style="visibility: hidden;">&#10005;</button>
+          </div>
+        </div>
+
+        <button type="button" class="btn btn-add" id="addPriorityBtn">
+          <span>+</span> Add Another Priority
+        </button>
+
+        <div class="form-actions">
+          <button type="submit" class="btn btn-primary btn-generate" id="generateBtn">
+            Generate My Protocol
+          </button>
+        </div>
+      </form>
+
+      <!-- Category suggestions -->
+      <div class="suggestions">
+        <p class="suggestions-label">Popular categories:</p>
+        <div class="suggestion-tags">
+          <button type="button" class="tag" data-value="Sleep optimization">Sleep</button>
+          <button type="button" class="tag" data-value="Fitness & strength training">Fitness</button>
+          <button type="button" class="tag" data-value="Career growth">Career</button>
+          <button type="button" class="tag" data-value="Mental performance & focus">Mindset</button>
+          <button type="button" class="tag" data-value="Nutrition & diet">Nutrition</button>
+          <button type="button" class="tag" data-value="Financial mastery">Finances</button>
+          <button type="button" class="tag" data-value="Relationships">Relationships</button>
+          <button type="button" class="tag" data-value="Productivity & time management">Productivity</button>
+          <button type="button" class="tag" data-value="Leadership & influence">Leadership</button>
+          <button type="button" class="tag" data-value="Energy & vitality">Energy</button>
+          <button type="button" class="tag" data-value="Learning & reading">Learning</button>
+          <button type="button" class="tag" data-value="Creativity & innovation">Creativity</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Loading State -->
+  <section class="loading-section" id="loadingSection" style="display: none;">
+    <div class="container">
+      <div class="loading-content">
+        <div class="loading-spinner"></div>
+        <h2>Building Your Protocol</h2>
+        <p class="loading-status" id="loadingStatus">Analyzing priorities...</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Output Section -->
+  <section class="output-section" id="outputSection" style="display: none;">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-number">02</span>
+        <h2>Your Non-Negotiable Protocol</h2>
+        <p class="section-desc">Ranked by impact. Backed by research. Ready to implement today.</p>
+      </div>
+
+      <!-- Matched categories -->
+      <div class="matched-categories" id="matchedCategories"></div>
+
+      <!-- Protocol checklist -->
+      <div class="protocol-list" id="protocolList"></div>
+
+      <!-- Synergies -->
+      <div class="synergies-section" id="synergiesSection" style="display: none;">
+        <h3 class="synergies-title">Cross-Category Synergies</h3>
+        <p class="synergies-desc">Compound your results by leveraging these connections between your priorities.</p>
+        <div class="synergies-list" id="synergiesList"></div>
+      </div>
+
+      <!-- Actions -->
+      <div class="output-actions">
+        <button class="btn btn-primary" id="copyBtn">Copy Protocol</button>
+        <button class="btn btn-secondary" id="downloadBtn">Download as Text</button>
+        <button class="btn btn-ghost" id="resetBtn">Start Over</button>
+      </div>
+
+      <div class="copy-toast" id="copyToast">Protocol copied to clipboard</div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-brand">PRAXIS</div>
+      <p class="footer-text">Science-backed protocols for high-performers.<br>No fluff. No filler. Just what works.</p>
+      <p class="footer-disclaimer">Habit recommendations are based on peer-reviewed research and established frameworks. Consult professionals for medical, financial, or psychological advice.</p>
+    </div>
+  </footer>
+
+  <script src="js/protocols.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
